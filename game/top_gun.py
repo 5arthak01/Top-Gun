@@ -15,11 +15,6 @@ class stobs:
         self.rect = self.surf.get_rect()
 
     def posn(self):
-        # self.x = random.randint(0, winx - self.wd)
-        # self.r3 = int(pheight)
-        # self.r1 = random.randint(0, self.r3 - self.ht)
-        # self.r2 = random.randint(1, pnum - 2)
-        # self.y = self.r1 + self.r2 * self.r3 * 2
         self.rect = self.rect.move((self.x, self.y))
 
 
@@ -39,12 +34,6 @@ class mvobs:
         self.surf = pygame.Surface((self.width, self.height))
         self.rect = self.surf.get_rect()
         # now intitial position
-        # self.r1 = random.randint(0, int(pheight) - self.height)
-        # self.r2 = random.randint(1, pnum - 2)
-        # random.randrange(1, pnum, 2)
-        # self.y = self.r1 + self.r2 * int(pheight)
-        # self.x = random.randint(0, winx)
-        # self.y = random.randint(0,winy//10)
         self.rect.move_ip((self.x, self.y))
         self.move()
 
@@ -221,8 +210,6 @@ def mkpartn(q):  # to make partitions
 
     # partitions dimensions
     px = 0
-    # global pwidth = winx
-    # global pheight = winy/10
     py = pheight * q * 2
     pvel = 0
     # end
@@ -341,6 +328,7 @@ def scoring2():
 
 def result():
     pygame.display.quit()
+    pygame.time.delay(100)
     winx = 1000
     winy = 1000
     win = pygame.display.set_mode((winx, winy))
@@ -351,20 +339,13 @@ def result():
     text2 = font1.render('Player2: ' + str(player2.score), 1, (0, 0, 0))
     win.blit(text, (winx//2, winy//3))
     win.blit(text2, (winx//2, (2 * winy//3)))
-    pygame.time.delay(100)
 
 
 run = True
 while run:
     dispwin()
     clock.tick(30)
-    # pygame.time.delay(15)
     stnum = player.lvl
-    # mystobs = []
-    # for i in range(stnum):
-    #     temp = stobs()
-    #     temp.posn(i+2)
-    #     mystobs.append(temp)
     keys = pygame.key.get_pressed()
     player.update(keys)
     player2.update(keys)
@@ -384,7 +365,7 @@ while run:
         blah = pygame.time.get_ticks()
         somevar = 1
     if(player.rect.bottom <= r3):
-        player.score += (pygame.time.get_ticks() - blah)//1000
+        player.score -= (pygame.time.get_ticks() - blah)//1000
         run = playerswitch(run)
         flag = (flag + 1) % 2
         levellist[0] = levellist[0] + 1
@@ -403,7 +384,7 @@ while run:
         blah2 = pygame.time.get_ticks()
         somevar2 = 1
     if(player2.rect.bottom >= r3*8):
-        player2.score += (pygame.time.get_ticks() - blah2)//1000
+        player2.score -= (pygame.time.get_ticks() - blah2)//1000
         run = playerswitch(run)
         flag = (flag + 1) % 2
         levellist[1] = levellist[1] + 1
